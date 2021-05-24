@@ -45,7 +45,7 @@ public class ClientRepository {
 
     public boolean removeClient(Integer clientId) {
         Client clientToRemove = retrieveClient(clientId);
-        if (Objects.nonNull(clientToRemove)){
+        if (Objects.nonNull(clientToRemove)) {
             entityManager.remove(clientToRemove);
             return true;
         }
@@ -53,8 +53,8 @@ public class ClientRepository {
     }
 
     public List<Client> getAllClients() {
-        String jpql = "from Client as C ORDER BY C.id";
-        return  entityManager.createQuery(jpql).getResultList();
+        String jpql = "from Client as C ORDER BY C.name";
+        return entityManager.createQuery(jpql).getResultList();
     }
 
 

@@ -1,7 +1,6 @@
 package main.controllers;
 
 import main.entities.Client;
-import main.repositories.ClientInvoiceRepository;
 import main.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +23,6 @@ public class ClientCrudController {
 
     @Autowired
     private ClientRepository clientRepository;
-
-    @Autowired
-    private ClientInvoiceRepository clientInvoiceRepository;
 
     @PostMapping(value = "/create-client")
     public ResponseEntity<Client> createClient(@RequestBody Client client) {
