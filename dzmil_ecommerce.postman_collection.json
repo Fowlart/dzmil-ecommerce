@@ -365,7 +365,7 @@
 			"response": []
 		},
 		{
-			"name": "get all prices by name",
+			"name": "get all prices by item name",
 			"request": {
 				"method": "GET",
 				"header": [],

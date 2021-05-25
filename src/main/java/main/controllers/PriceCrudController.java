@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -76,8 +77,8 @@ public class PriceCrudController {
         return ResponseEntity.ok(priceRepository.getAllPrices());
     }
 
-    @GetMapping(value = "/get-all-prices/{itemName}")
-    public ResponseEntity getAllPricesByItemName(@PathVariable String itemName) {
+    @GetMapping(value = "/get-prices-by-item-name")
+    public ResponseEntity getAllPricesByItemName(@RequestParam String itemName) {
         return ResponseEntity.ok(itemRepository.findPricesByItemName(itemName));
     }
 }
