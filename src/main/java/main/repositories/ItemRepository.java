@@ -3,13 +3,16 @@ package main.repositories;
 
 import main.entities.Client;
 import main.entities.Item;
+import main.entities.Price;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Transactional
 @Repository
@@ -56,6 +59,13 @@ public class ItemRepository {
     public List<Item> getAllItems() {
         String jpql = "from Item as I ORDER BY I.name";
         return entityManager.createQuery(jpql).getResultList();
+    }
+
+    public List<Price> findPricesByItemName(String itemName){
+        // Todo: JPQL SELECT and WHERE clause
+        TypedQuery<Item> query =entityManager.createQuery("from Item as I where I.name like '"+itemName+"'", Item.class);
+        List<Item> resultList = query.getResultList();
+        return resultList.stream().flatMap(item -> item.getPrices().stream()).collect(Collectors.toList());
     }
 
 

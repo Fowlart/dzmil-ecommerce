@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.dto.PriceDTO;
 import main.entities.Item;
 import main.entities.Price;
 import main.repositories.ItemRepository;
@@ -38,9 +39,9 @@ public class PriceCrudController {
     }
 
     @PostMapping(value = "/add-price")
-    public ResponseEntity<Price> addPrice(@RequestBody Price price) {
-        Item item = itemRepository.retrieveItem(price.getItem().getId());
-
+    public ResponseEntity<Price> addPrice(@RequestBody PriceDTO price) {
+        Item item = itemRepository.retrieveItem(price.getItemId());
+        Price response;
         // Item was not found
         if (Objects.isNull(item)) {
             return formErrorMsgPrice("No item with given id!", HttpStatus.NOT_FOUND);
@@ -54,13 +55,13 @@ public class PriceCrudController {
         try {
             // Todo: add validation
             LocalDate date = LocalDate.parse(price.getLocalDate());
-            price = priceRepository.addPrice(price.getId(), item, price.getPrice(), date);
+             response = priceRepository.addPrice(price.getId(), item, price.getPrice(), date);
         } catch (Exception exception) {
             // not unique invoiceId
             return formErrorMsgPrice("Given price id not unique!", HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok(price);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/get-price/{id}")
@@ -73,5 +74,10 @@ public class PriceCrudController {
     @GetMapping(value = "/get-all-prices")
     public ResponseEntity getAllPrices() {
         return ResponseEntity.ok(priceRepository.getAllPrices());
+    }
+
+    @GetMapping(value = "/get-all-prices/{itemName}")
+    public ResponseEntity getAllPricesByItemName(@PathVariable String itemName) {
+        return ResponseEntity.ok(itemRepository.findPricesByItemName(itemName));
     }
 }

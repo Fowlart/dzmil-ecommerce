@@ -1,5 +1,6 @@
 package main.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.CascadeType;
@@ -23,6 +24,7 @@ public class Price {
     @Column(name = "price_id")
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;

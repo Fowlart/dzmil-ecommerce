@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -19,6 +23,17 @@ public class Item {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "item")
+    private List<Price> prices;
+
+    public List<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(List<Price> prices) {
+        this.prices = prices;
+    }
 
     @Transient
     private String errorMsg;

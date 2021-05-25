@@ -2,11 +2,14 @@ package main.repositories;
 
 import main.entities.Item;
 import main.entities.Price;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -37,11 +40,6 @@ public class PriceRepository {
         return entityManager.find(Price.class, id);
     }
 
-    public Price findPricesByItem(Item item){
-        // Todo: JPQL SELECT and WHERE clause
-        String jpql = "from Price as P where P.Item = item";
-        return null;
-    }
 
     public List<Price> getAllPrices() {
         String jpql = "from Price as P ORDER BY P.date";
