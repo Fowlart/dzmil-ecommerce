@@ -62,7 +62,6 @@ public class ItemRepository {
     }
 
     public List<Price> findPricesByItemName(String itemName){
-        // Todo: JPQL SELECT and WHERE clause
         TypedQuery<Item> query =entityManager.createQuery("from Item as I where I.name like '"+itemName+"'", Item.class);
         List<Item> resultList = query.getResultList();
         return resultList.stream().flatMap(item -> item.getPrices().stream()).collect(Collectors.toList());

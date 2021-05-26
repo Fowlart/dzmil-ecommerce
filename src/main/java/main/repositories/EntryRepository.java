@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Transactional
 @Repository
@@ -45,7 +45,8 @@ public class EntryRepository {
     }
 
     public List<Entry> getEntriesByInvoiceId(Invoice invoice) {
-        //Todo: use HQL join
-        return getAllEntries().stream().filter(entry -> entry.getInvoice().getId().equals(invoice.getId())).collect(Collectors.toList());
+        Query query = entityManager
+                .createQuery("from Entry as e join e.invoice as i where i.id = " + invoice.getId());
+        return query.getResultList();
     }
 }
