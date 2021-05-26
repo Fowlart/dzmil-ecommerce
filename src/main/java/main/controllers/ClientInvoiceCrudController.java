@@ -34,6 +34,10 @@ public class ClientInvoiceCrudController {
     @PostMapping(value = "/add-client-invoice")
     public ResponseEntity<ClientInvoice> addClientInvoice(@RequestBody ClientInvoice clientInvoice) {
         Client client = clientRepository.retrieveClient(clientInvoice.getClient().getId());
+        Client supplier=null;
+        if (Objects.nonNull(clientInvoice.getSupplier())) {
+           supplier = clientRepository.retrieveClient(clientInvoice.getSupplier().getId());
+        }
 
         // Client was not found
         if (Objects.isNull(client)) {
@@ -47,7 +51,7 @@ public class ClientInvoiceCrudController {
 
         try {
             clientInvoice = clientInvoiceRepository.addClientInvoice(clientInvoice.getId(), client,
-                    clientInvoice.getInvoiceId(), clientInvoice.getInvoiceTotal());
+                    clientInvoice.getInvoiceId(), clientInvoice.getInvoiceTotal(), supplier);
         } catch (Exception exception) {
             // not unique invoiceId
             return formErrorMsgInvoiceClientResponse(INVOICE_ID_NOT_UNIQUE, HttpStatus.BAD_REQUEST);

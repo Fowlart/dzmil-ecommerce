@@ -27,6 +27,10 @@ public class ClientInvoice implements Serializable {
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supplier_id", referencedColumnName = "client_id")
+    private Client supplier;
+
     @Column(name = "invoice_id")
     private Integer invoiceId;
 
@@ -85,5 +89,13 @@ public class ClientInvoice implements Serializable {
 
     public void setInvoiceTotal(BigDecimal invoiceTotal) {
         this.invoiceTotal = invoiceTotal;
+    }
+
+    public Client getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Client supplier) {
+        this.supplier = supplier;
     }
 }
