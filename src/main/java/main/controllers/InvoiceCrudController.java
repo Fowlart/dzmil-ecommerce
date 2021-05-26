@@ -1,9 +1,9 @@
 package main.controllers;
 
 import main.entities.Client;
-import main.entities.ClientInvoice;
-import main.repositories.ClientInvoiceRepository;
+import main.entities.Invoice;
 import main.repositories.ClientRepository;
+import main.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "")
-public class ClientInvoiceCrudController {
+public class InvoiceCrudController {
 
-    public static final String CLIENT_INVOICE_WITH_GIVEN_ID_ALREADY_EXIST = "ClientInvoice with given Id already exist!";
+    public static final String CLIENT_INVOICE_WITH_GIVEN_ID_ALREADY_EXIST = "Invoice with given Id already exist!";
     public static final String INVOICE_ID_NOT_UNIQUE = "Given invoiceId not unique!";
     public static final String NO_CLIENT_INVOICE_WITH_GIVEN_ID = "No clientInvoice with given Id!";
     public static final String NO_CLIENT_WITH_GIVEN_ID = "No client with given id!";
@@ -29,14 +31,14 @@ public class ClientInvoiceCrudController {
     private ClientRepository clientRepository;
 
     @Autowired
-    private ClientInvoiceRepository clientInvoiceRepository;
+    private InvoiceRepository invoiceRepository;
 
-    @PostMapping(value = "/add-client-invoice")
-    public ResponseEntity<ClientInvoice> addClientInvoice(@RequestBody ClientInvoice clientInvoice) {
-        Client client = clientRepository.retrieveClient(clientInvoice.getClient().getId());
-        Client supplier=null;
-        if (Objects.nonNull(clientInvoice.getSupplier())) {
-           supplier = clientRepository.retrieveClient(clientInvoice.getSupplier().getId());
+    @PostMapping(value = "/add-invoice")
+    public ResponseEntity<Invoice> addInvoice(@RequestBody Invoice invoice) {
+        Client client = clientRepository.retrieveClient(invoice.getClient().getId());
+        Client supplier = null;
+        if (Objects.nonNull(invoice.getSupplier())) {
+            supplier = clientRepository.retrieveClient(invoice.getSupplier().getId());
         }
 
         // Client was not found
@@ -44,32 +46,37 @@ public class ClientInvoiceCrudController {
             return formErrorMsgInvoiceClientResponse(NO_CLIENT_WITH_GIVEN_ID, HttpStatus.NOT_FOUND);
         }
 
-        // ClientInvoice with given Id already exist
-        if (Objects.nonNull(clientInvoiceRepository.findInvoice(clientInvoice.getId()))) {
+        // Invoice with given Id already exist
+        if (Objects.nonNull(invoiceRepository.findInvoice(invoice.getId()))) {
             return formErrorMsgInvoiceClientResponse(CLIENT_INVOICE_WITH_GIVEN_ID_ALREADY_EXIST, HttpStatus.CONFLICT);
         }
 
         try {
-            clientInvoice = clientInvoiceRepository.addClientInvoice(clientInvoice.getId(), client,
-                    clientInvoice.getInvoiceId(), clientInvoice.getInvoiceTotal(), supplier);
+            invoice = invoiceRepository.addClientInvoice(invoice.getId(), client,
+                    invoice.getInvoiceTotal(), supplier);
         } catch (Exception exception) {
             // not unique invoiceId
             return formErrorMsgInvoiceClientResponse(INVOICE_ID_NOT_UNIQUE, HttpStatus.BAD_REQUEST);
         }
 
-        return ResponseEntity.ok(clientInvoice);
+        return ResponseEntity.ok(invoice);
     }
 
-    @GetMapping(value = "/get-client-invoice/{id}")
-    public ResponseEntity<ClientInvoice> findInvoiceClient(@PathVariable Integer id) {
-        ClientInvoice clientInvoice = clientInvoiceRepository.findInvoice(id);
-        return Objects.nonNull(clientInvoice) ? ResponseEntity.ok(clientInvoice) :
+    @GetMapping(value = "/get-invoice/{id}")
+    public ResponseEntity<Invoice> findInvoice(@PathVariable Integer id) {
+        Invoice invoice = invoiceRepository.findInvoice(id);
+        return Objects.nonNull(invoice) ? ResponseEntity.ok(invoice) :
                 formErrorMsgInvoiceClientResponse(NO_CLIENT_INVOICE_WITH_GIVEN_ID, HttpStatus.NOT_FOUND);
     }
 
-    private ResponseEntity<ClientInvoice> formErrorMsgInvoiceClientResponse(String msg, HttpStatus status) {
-        ClientInvoice err = new ClientInvoice();
-        err.setInvoiceId(null);
+    @GetMapping(value = "/get-invoices")
+    public ResponseEntity<List<Invoice>> findInvoiceByUserName(@RequestParam String userName) {
+        List<Invoice> invoices = invoiceRepository.findInvoiceByCustomerOrSupplier(userName);
+        return ResponseEntity.ok(invoices);
+    }
+
+    private ResponseEntity<Invoice> formErrorMsgInvoiceClientResponse(String msg, HttpStatus status) {
+        Invoice err = new Invoice();
         err.setClient(null);
         err.setDate(null);
         err.setInvoiceTotal(null);

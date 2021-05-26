@@ -10,7 +10,7 @@ public class EntryDTO {
 
     private Integer qty;
 
-    private Integer clientInvoiceId;
+    private Integer invoiceId;
 
     private BigDecimal sellPrice;
 
@@ -38,12 +38,12 @@ public class EntryDTO {
         this.qty = qty;
     }
 
-    public Integer getClientInvoiceId() {
-        return clientInvoiceId;
+    public Integer getInvoiceId() {
+        return invoiceId;
     }
 
-    public void setClientInvoiceId(Integer clientInvoiceId) {
-        this.clientInvoiceId = clientInvoiceId;
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     public BigDecimal getSellPrice() {

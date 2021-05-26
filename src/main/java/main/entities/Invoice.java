@@ -7,20 +7,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "client_invoice")
+@Table(name = "invoices")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientInvoice implements Serializable {
+public class Invoice implements Serializable {
 
     @Id
-    @Column(name = "client_invoice_id")
+    @Column(name = "invoice_id")
     private Integer id;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -30,9 +33,6 @@ public class ClientInvoice implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supplier_id", referencedColumnName = "client_id")
     private Client supplier;
-
-    @Column(name = "invoice_id")
-    private Integer invoiceId;
 
     @Column(name = "date")
     private LocalDate date;
@@ -65,14 +65,6 @@ public class ClientInvoice implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Integer getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
     }
 
     public LocalDate getDate() {

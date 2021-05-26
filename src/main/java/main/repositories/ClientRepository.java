@@ -56,6 +56,4 @@ public class ClientRepository {
         String jpql = "from Client as C ORDER BY C.name";
         return entityManager.createQuery(jpql).getResultList();
     }
-
-
 }

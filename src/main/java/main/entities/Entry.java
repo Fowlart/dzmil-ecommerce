@@ -31,7 +31,7 @@ public class Entry {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id")
-    private ClientInvoice clientInvoice;
+    private Invoice invoice;
 
     @Column(name = "sell_price")
     private BigDecimal sellPrice;
@@ -63,12 +63,12 @@ public class Entry {
         this.qty = qty;
     }
 
-    public ClientInvoice getClientInvoice() {
-        return clientInvoice;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setClientInvoice(ClientInvoice clientInvoice) {
-        this.clientInvoice = clientInvoice;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     public BigDecimal getSellPrice() {

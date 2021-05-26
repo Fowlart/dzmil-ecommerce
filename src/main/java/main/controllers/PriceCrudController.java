@@ -48,7 +48,7 @@ public class PriceCrudController {
             return formErrorMsgPrice("No item with given id!", HttpStatus.NOT_FOUND);
         }
 
-        // ClientInvoice with given Id already exist
+        // Invoice with given Id already exist
         if (Objects.nonNull(priceRepository.findPrice(price.getId()))) {
             return formErrorMsgPrice("Price with given Id already exist!", HttpStatus.CONFLICT);
         }
