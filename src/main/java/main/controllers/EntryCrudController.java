@@ -7,6 +7,7 @@ import main.entities.Item;
 import main.repositories.EntryRepository;
 import main.repositories.InvoiceRepository;
 import main.repositories.ItemRepository;
+import main.services.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,9 @@ public class EntryCrudController {
     @Autowired
     private InvoiceRepository invoiceRepository;
 
+    @Autowired
+    private EntryService entryService;
+
     @GetMapping(value = "/get-all-entries")
     public ResponseEntity getAllEntries() {
         return ResponseEntity.ok(entryRepository.getAllEntries());
@@ -60,10 +64,9 @@ public class EntryCrudController {
         Invoice invoice = invoiceRepository.findInvoice(invoiceId);
 
         if (Objects.nonNull(invoice)) {
-            List<EntryDTO> list = entryRepository.getEntriesByInvoiceId(invoice)
+            List<EntryDTO> list = entryService.getEntriesByInvoiceIdAndSquash(invoice)
                     .stream()
-                    .map(objArray -> {
-                        Entry entry = (Entry)objArray[0];
+                    .map(entry -> {
                         EntryDTO entryDTO = new EntryDTO();
                         entryDTO.setId(entry.getId());
                         entryDTO.setItemName(entry.getItem().getName());
