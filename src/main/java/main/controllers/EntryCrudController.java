@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,10 +22,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static main.controllers.ItemCrudController.NO_ITEM_WITH_GIVEN_ID;
+
 @RestController
 @RequestMapping(path = "")
 public class EntryCrudController {
 
+    public static final String NO_INVOICE_WITH_GIVEN_ID = "No invoice with given id!";
     @Autowired
     private EntryRepository entryRepository;
 
@@ -49,6 +53,7 @@ public class EntryCrudController {
                     .map(objArray -> {
                         Entry entry = (Entry)objArray[0];
                         EntryDTO entryDTO = new EntryDTO();
+                        entryDTO.setId(entry.getId());
                         entryDTO.setItemName(entry.getItem().getName());
                         entryDTO.setQty(entry.getQty());
                         entryDTO.setItemId(entry.getItem().getId());
@@ -93,5 +98,33 @@ public class EntryCrudController {
 
         // Todo: change status in error case
         return ResponseEntity.status(HttpStatus.CREATED).body(body);
+    }
+
+    @PutMapping(value = "/update-entry")
+    public ResponseEntity<EntryDTO> updateEntry(@RequestBody EntryDTO entryDTO) {
+
+        Item item = itemRepository.retrieveItem(entryDTO.getItemId());
+        Invoice invoice = invoiceRepository.findInvoice(entryDTO.getInvoiceId());
+
+        if (Objects.isNull(item)) {
+            return formErrorMsg(entryDTO,NO_ITEM_WITH_GIVEN_ID);
+        }
+
+        if (Objects.isNull(invoice)){
+           return formErrorMsg(entryDTO,NO_INVOICE_WITH_GIVEN_ID);
+        }
+
+        entryRepository.updateEntry(entryDTO.getId(),item,entryDTO.getQty(),invoice,entryDTO.getSellPrice());
+        return ResponseEntity.ok(entryDTO);
+    }
+
+    private ResponseEntity<EntryDTO> formErrorMsg(EntryDTO entryDTO,String msg) {
+        entryDTO.setErrorMsg(msg);
+        entryDTO.setInvoiceId(null);
+        entryDTO.setId(null);
+        entryDTO.setItemName(null);
+        entryDTO.setSellPrice(null);
+        entryDTO.setQty(null);
+        return ResponseEntity.badRequest().body(entryDTO);
     }
 }

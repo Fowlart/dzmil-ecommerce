@@ -19,6 +19,8 @@ public class EntryDTO {
 
     private BigDecimal sellPrice;
 
+    private String errorMsg;
+
     public Integer getId() {
         return id;
     }
@@ -65,5 +67,13 @@ public class EntryDTO {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

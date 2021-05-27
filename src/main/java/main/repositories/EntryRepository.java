@@ -39,12 +39,25 @@ public class EntryRepository {
         }
     }
 
+    public synchronized Entry updateEntry(int id, Item item, Integer qty, Invoice invoice, BigDecimal sellPrice) {
+        Entry searchedEntry = retrieveEntry(id);
+        if (Objects.nonNull(searchedEntry)) {
+            searchedEntry.setItem(item);
+            searchedEntry.setQty(qty);
+            searchedEntry.setInvoice(invoice);
+            searchedEntry.setSellPrice(sellPrice);
+            entityManager.flush();
+            return searchedEntry;
+        }
+        return null;
+    }
+
     public List<Entry> getAllEntries() {
         String jpql = "from Entry as E ORDER BY E.id";
         return entityManager.createQuery(jpql).getResultList();
     }
 
-    public  List<Object[]> getEntriesByInvoiceId(Invoice invoice) {
+    public List<Object[]> getEntriesByInvoiceId(Invoice invoice) {
         Query query = entityManager
                 .createQuery("from Entry as e join e.invoice as i where i.id = " + invoice.getId());
         return query.getResultList();
