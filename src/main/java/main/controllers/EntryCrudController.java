@@ -110,8 +110,6 @@ public class EntryCrudController {
             body.setErrorMsg("Entry with id " + entryDTO.getId() + " is already exist!");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
         }
-
-        // Todo: change status in error case
         return ResponseEntity.status(HttpStatus.CREATED).body(body);
     }
 
@@ -122,18 +120,18 @@ public class EntryCrudController {
         Invoice invoice = invoiceRepository.findInvoice(entryDTO.getInvoiceId());
 
         if (Objects.isNull(item)) {
-            return formErrorMsg(entryDTO,NO_ITEM_WITH_GIVEN_ID);
+            return formErrorMsg(entryDTO, NO_ITEM_WITH_GIVEN_ID);
         }
 
-        if (Objects.isNull(invoice)){
-           return formErrorMsg(entryDTO,NO_INVOICE_WITH_GIVEN_ID);
+        if (Objects.isNull(invoice)) {
+            return formErrorMsg(entryDTO, NO_INVOICE_WITH_GIVEN_ID);
         }
 
-        entryRepository.updateEntry(entryDTO.getId(),item,entryDTO.getQty(),invoice,entryDTO.getSellPrice());
+        entryRepository.updateEntry(entryDTO.getId(), item, entryDTO.getQty(), invoice, entryDTO.getSellPrice());
         return ResponseEntity.ok(entryDTO);
     }
 
-    private ResponseEntity<EntryDTO> formErrorMsg(EntryDTO entryDTO,String msg) {
+    private ResponseEntity<EntryDTO> formErrorMsg(EntryDTO entryDTO, String msg) {
         entryDTO.setErrorMsg(msg);
         entryDTO.setInvoiceId(null);
         entryDTO.setId(null);
