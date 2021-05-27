@@ -1,12 +1,17 @@
 package main.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EntryDTO {
 
     private Integer id;
 
     private Integer itemId;
+
+    private String itemName;
 
     private Integer qty;
 
@@ -52,5 +57,13 @@ public class EntryDTO {
 
     public void setSellPrice(BigDecimal sellPrice) {
         this.sellPrice = sellPrice;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 }

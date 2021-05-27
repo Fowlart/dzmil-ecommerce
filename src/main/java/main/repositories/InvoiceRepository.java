@@ -37,7 +37,6 @@ public class InvoiceRepository {
     }
 
     public List<Invoice> getAllClientInvoices() {
-        // Todo: need to optimize sql query
         String jpql = "from Invoice as C ORDER BY C.date DESC";
         return entityManager.createQuery(jpql).getResultList();
     }

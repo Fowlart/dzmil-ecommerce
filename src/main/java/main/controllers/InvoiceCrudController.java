@@ -75,6 +75,12 @@ public class InvoiceCrudController {
         return ResponseEntity.ok(invoices);
     }
 
+    @GetMapping(value = "/get-all-invoices")
+    public ResponseEntity<List<Invoice>> findAllInvoices () {
+        List<Invoice> invoices = invoiceRepository.getAllClientInvoices();
+        return ResponseEntity.ok(invoices);
+    }
+
     private ResponseEntity<Invoice> formErrorMsgInvoiceClientResponse(String msg, HttpStatus status) {
         Invoice err = new Invoice();
         err.setClient(null);

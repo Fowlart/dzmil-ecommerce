@@ -44,7 +44,7 @@ public class EntryRepository {
         return entityManager.createQuery(jpql).getResultList();
     }
 
-    public List<Entry> getEntriesByInvoiceId(Invoice invoice) {
+    public  List<Object[]> getEntriesByInvoiceId(Invoice invoice) {
         Query query = entityManager
                 .createQuery("from Entry as e join e.invoice as i where i.id = " + invoice.getId());
         return query.getResultList();

@@ -1,8 +1,10 @@
 package main.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.math.BigDecimal;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PriceDTO {
 
     private Integer id;
