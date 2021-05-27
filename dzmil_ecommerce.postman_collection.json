@@ -133,7 +133,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/get-invoice/7",
+					"raw": "http://localhost:8080/get-invoice/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -141,7 +141,7 @@
 					"port": "8080",
 					"path": [
 						"get-invoice",
-						"7"
+						"3"
 					]
 				}
 			},
@@ -396,7 +396,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":2,\r\n    \"itemId\": 1,\r\n    \"sellPrice\":4.2,\r\n    \"qty\":1,\r\n    \"clientInvoiceId\":3\r\n}",
+					"raw": "{\r\n    \"id\":5,\r\n    \"itemId\": 1,\r\n    \"sellPrice\":4.2,\r\n    \"qty\":55,\r\n    \"invoiceId\":3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -509,6 +509,25 @@
 					"port": "8080",
 					"path": [
 						"update-entry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-invoices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/get-all-invoices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get-all-invoices"
 					]
 				}
 			},

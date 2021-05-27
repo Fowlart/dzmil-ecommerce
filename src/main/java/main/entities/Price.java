@@ -25,7 +25,7 @@ public class Price {
     private Integer id;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;
 

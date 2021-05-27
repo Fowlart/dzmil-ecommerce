@@ -26,11 +26,11 @@ public class Invoice implements Serializable {
     @Column(name = "invoice_id")
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "supplier_id", referencedColumnName = "client_id")
     private Client supplier;
 

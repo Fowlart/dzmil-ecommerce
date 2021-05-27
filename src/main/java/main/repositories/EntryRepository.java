@@ -62,4 +62,13 @@ public class EntryRepository {
                 .createQuery("from Entry as e join e.invoice as i where i.id = " + invoice.getId());
         return query.getResultList();
     }
+
+    public boolean removeEntry(Integer id) {
+        Entry entryToRemove = retrieveEntry(id);
+        if (Objects.nonNull(entryToRemove)) {
+            entityManager.remove(entryToRemove);
+            return true;
+        }
+        return false;
+    }
 }

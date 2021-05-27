@@ -22,14 +22,14 @@ public class Entry {
     @Column(name = "entry_id")
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;
 
     @Column(name = "qty")
     private Integer qty;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "invoice_id", referencedColumnName = "invoice_id")
     private Invoice invoice;
 
