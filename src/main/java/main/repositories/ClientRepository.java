@@ -52,8 +52,10 @@ public class ClientRepository {
         return false;
     }
 
-    public List<Client> getAllClients() {
-        String jpql = "from Client as C ORDER BY C.name";
+    public List getAllClients() {
+        String jpql = "FROM Client as C ORDER BY C.name";
         return entityManager.createQuery(jpql).getResultList();
     }
+
+    
 }

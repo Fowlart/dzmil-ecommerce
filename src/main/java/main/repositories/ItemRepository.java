@@ -1,7 +1,6 @@
 package main.repositories;
 
 
-import main.entities.Client;
 import main.entities.Item;
 import main.entities.Price;
 import org.springframework.stereotype.Repository;

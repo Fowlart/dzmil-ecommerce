@@ -32,17 +32,21 @@ import static main.controllers.ItemCrudController.NO_ITEM_WITH_GIVEN_ID;
 public class EntryCrudController {
 
     public static final String NO_INVOICE_WITH_GIVEN_ID = "No invoice with given id!";
-    @Autowired
     private EntryRepository entryRepository;
 
-    @Autowired
     private ItemRepository itemRepository;
 
-    @Autowired
     private InvoiceRepository invoiceRepository;
 
-    @Autowired
     private EntryService entryService;
+
+    @Autowired
+    public EntryCrudController(EntryRepository entryRepository, ItemRepository itemRepository, InvoiceRepository invoiceRepository, EntryService entryService) {
+        this.entryRepository = entryRepository;
+        this.itemRepository = itemRepository;
+        this.invoiceRepository = invoiceRepository;
+        this.entryService = entryService;
+    }
 
     @GetMapping(value = "/get-all-entries")
     public ResponseEntity getAllEntries() {

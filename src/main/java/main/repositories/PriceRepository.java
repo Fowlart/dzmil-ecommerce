@@ -2,14 +2,11 @@ package main.repositories;
 
 import main.entities.Item;
 import main.entities.Price;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.CriteriaQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,8 +20,11 @@ public class PriceRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
+
+    public PriceRepository(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     public Price addPrice(Integer id, Item item, BigDecimal price, LocalDate date) {
         Price newPrice = new Price();

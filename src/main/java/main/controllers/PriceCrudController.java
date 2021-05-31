@@ -23,11 +23,15 @@ import java.util.Objects;
 @RequestMapping(path = "")
 public class PriceCrudController {
 
-    @Autowired
     private ItemRepository itemRepository;
 
+    private  PriceRepository priceRepository;
+
     @Autowired
-    private PriceRepository priceRepository;
+    public PriceCrudController(ItemRepository itemRepository, PriceRepository priceRepository) {
+        this.itemRepository = itemRepository;
+        this.priceRepository = priceRepository;
+    }
 
     private ResponseEntity<Price> formErrorMsgPrice(String msg, HttpStatus status) {
         Price err = new Price();

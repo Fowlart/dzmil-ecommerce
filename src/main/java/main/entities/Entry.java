@@ -2,7 +2,6 @@ package main.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

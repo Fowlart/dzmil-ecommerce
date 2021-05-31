@@ -27,11 +27,15 @@ public class InvoiceCrudController {
     public static final String NO_CLIENT_INVOICE_WITH_GIVEN_ID = "No clientInvoice with given Id!";
     public static final String NO_CLIENT_WITH_GIVEN_ID = "No client with given id!";
 
-    @Autowired
     private ClientRepository clientRepository;
 
+    private final InvoiceRepository invoiceRepository;
+
     @Autowired
-    private InvoiceRepository invoiceRepository;
+    public InvoiceCrudController(ClientRepository clientRepository, InvoiceRepository invoiceRepository) {
+        this.clientRepository = clientRepository;
+        this.invoiceRepository = invoiceRepository;
+    }
 
     @PostMapping(value = "/add-invoice")
     public ResponseEntity<Invoice> addInvoice(@RequestBody Invoice invoice) {

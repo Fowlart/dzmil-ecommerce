@@ -60,7 +60,7 @@ public class Client implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Client)) return false;
         Client client = (Client) o;
-        return id == client.id && name.equals(client.name);
+        return id.equals(client.id) && name.equals(client.name);
     }
 
     @Override

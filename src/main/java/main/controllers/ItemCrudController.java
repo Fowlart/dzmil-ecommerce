@@ -21,8 +21,11 @@ import java.util.Objects;
 public class ItemCrudController {
 
     public static final String NO_ITEM_WITH_GIVEN_ID = "No item with given id!";
-    @Autowired
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
+
+    public ItemCrudController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     @PostMapping(value = "/create-item")
     public ResponseEntity<Item> createItem(@RequestBody Item item) {

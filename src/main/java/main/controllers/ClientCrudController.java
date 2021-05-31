@@ -21,8 +21,11 @@ import java.util.Objects;
 public class ClientCrudController {
     public static final String NO_CLIENT_WITH_GIVEN_ID = "No client with given id!";
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    public ClientCrudController(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     @PostMapping(value = "/create-client")
     public ResponseEntity<Client> createClient(@RequestBody Client client) {

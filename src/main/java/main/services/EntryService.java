@@ -13,8 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class EntryService {
 
-    @Autowired
-    private EntryRepository entryRepository;
+    private final EntryRepository entryRepository;
+
+    public EntryService(EntryRepository entryRepository) {
+        this.entryRepository = entryRepository;
+    }
 
     public List<Entry> getEntriesByInvoiceIdAndSquash(Invoice invoice) {
         final List<Entry> foundEntries = entryRepository.getEntriesByInvoiceId(invoice).stream().map(arr -> (Entry) arr[0]).collect(Collectors.toList());
