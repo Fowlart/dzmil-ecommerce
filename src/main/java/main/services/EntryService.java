@@ -3,7 +3,6 @@ package main.services;
 import main.entities.Entry;
 import main.entities.Invoice;
 import main.repositories.EntryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

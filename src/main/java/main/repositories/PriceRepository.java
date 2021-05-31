@@ -2,7 +2,6 @@ package main.repositories;
 
 import main.entities.Item;
 import main.entities.Price;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

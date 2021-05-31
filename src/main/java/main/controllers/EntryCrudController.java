@@ -27,6 +27,9 @@ import java.util.stream.Collectors;
 
 import static main.controllers.ItemCrudController.NO_ITEM_WITH_GIVEN_ID;
 
+/**
+ * Controller for CRUD operation upon on @Entry entity
+ */
 @RestController
 @RequestMapping(path = "")
 public class EntryCrudController {
@@ -40,6 +43,13 @@ public class EntryCrudController {
 
     private EntryService entryService;
 
+    /**
+     *
+     * @param entryRepository
+     * @param itemRepository
+     * @param invoiceRepository
+     * @param entryService
+     */
     @Autowired
     public EntryCrudController(EntryRepository entryRepository, ItemRepository itemRepository, InvoiceRepository invoiceRepository, EntryService entryService) {
         this.entryRepository = entryRepository;
