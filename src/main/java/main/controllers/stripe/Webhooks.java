@@ -3,8 +3,10 @@ package main.controllers.stripe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
 import com.stripe.model.Event;
-import com.stripe.net.ApiResource;
+import com.stripe.model.EventDataObjectDeserializer;
+import com.stripe.model.StripeObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,24 @@ public class Webhooks {
         }
         System.out.println("> Received request: ");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Event event = gson.fromJson(stringBuilder.toString(),Event.class);
+        Event event = gson.fromJson(stringBuilder.toString(), Event.class);
         System.out.println(event.getType());
+        EventDataObjectDeserializer eventDataObjectDeserializer = event.getDataObjectDeserializer();
+        StripeObject stripeObject = null;
+        if (eventDataObjectDeserializer.getObject().isPresent()) {
+            stripeObject = eventDataObjectDeserializer.getObject().get();
+        }
+
+        switch (event.getType()) {
+            case "customer.created": {
+                Customer customer = (Customer) stripeObject;
+                System.out.println(customer);
+                break;
+            }
+            default: {
+                System.out.println("> unhandled event type!");
+            }
+        }
 
         return ResponseEntity.ok().build();
     }
