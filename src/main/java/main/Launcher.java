@@ -1,5 +1,6 @@
 package main;
 
+import com.stripe.Stripe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -14,5 +15,6 @@ public class Launcher {
         SpringApplication app = new SpringApplication(Launcher.class);
         app.run(args);
         logger.info("Launcher was started.");
+        logger.info("Stripe API Version: "+ Stripe.API_VERSION);
     }
 }

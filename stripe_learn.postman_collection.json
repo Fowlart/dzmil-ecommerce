@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "b52e10ab-2aaf-4673-8b82-83308412f6ff",
+		"name": "stripe_learn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "errors-handling",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/errors-handling",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"errors-handling"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-stripe-customer-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/get-stripe-customer-list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"get-stripe-customer-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/create-customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"create-customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-customer-2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/create-customer-2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"create-customer-2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/fetch-customer?id=cus_Jfu2L2g3IU4sZV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"fetch-customer"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cus_Jfu2L2g3IU4sZV"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer additional params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/create-customer-3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"create-customer-3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer with param pm_card_visa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/create-customer-4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"create-customer-4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-customer-eMail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/update-customer-eMail?id=cus_JfuINgIz4AuBvu&eMail=fowlart1988@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"update-customer-eMail"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cus_JfuINgIz4AuBvu"
+						},
+						{
+							"key": "eMail",
+							"value": "fowlart1988@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-customer-nested-params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/update-customer-nested-params?id=cus_Jfw0SmNfCvwC0q",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"update-customer-nested-params"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cus_Jfw0SmNfCvwC0q"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-stripe-customer-list-filtered",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/get-stripe-customer-list-filtered?eMail=fowlart1988@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"get-stripe-customer-list-filtered"
+					],
+					"query": [
+						{
+							"key": "eMail",
+							"value": "fowlart1988@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/delete-customer?id=cus_Jfu2L2g3IU4sZV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"delete-customer"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "cus_Jfu2L2g3IU4sZV"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "payment-intent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/payment-intent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"payment-intent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "nested-resource",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/nested-resource?customerCode=cus_JfuINgIz4AuBvu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"nested-resource"
+					],
+					"query": [
+						{
+							"key": "customerCode",
+							"value": "cus_JfuINgIz4AuBvu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-customer-with-meta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/metadata/get-customer-with-meta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"metadata",
+						"get-customer-with-meta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-customer-with-meta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/metadata/update-customer-with-meta?customerId=cus_JgI9CdsU13Qah4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"metadata",
+						"update-customer-with-meta"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "cus_JgI9CdsU13Qah4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "webhooks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/webhooks/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"webhooks",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "idempotency",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stripe/idempotency",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stripe",
+						"idempotency"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

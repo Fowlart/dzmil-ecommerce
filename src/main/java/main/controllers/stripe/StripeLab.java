@@ -3,6 +3,7 @@ package main.controllers.stripe;
 
 import com.stripe.exception.*;
 import com.stripe.model.*;
+import com.stripe.model.checkout.Session;
 import com.stripe.net.RequestOptions;
 import com.stripe.param.*;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,7 @@ import java.util.Map;
 public class StripeLab {
 
     static public final String publishableKey = "pk_test_51J2EO2EoAGESdlxhMqsn7ZwZrdvolvKtNYMt8Zf4PxTewNwmx6W8MPbr7Ukm59uOwe0RAfcIcvefLFBpqQzjDMLW00mEzZTW1b";
-    static public final String secretKey = "";
+    static public final String secretKey = "sk_test_51J2EO2EoAGESdlxhx4CU0lowJrfaIRqOYJAvddFeuAPiLdfA8P4AyaRhHx70q96vdBppHZknH6mymrbcK8IkHTUj00kZnHW3cj";
 
     @GetMapping(value = "/get-stripe-customer-list")
     public ResponseEntity<List<Customer>> getCustomerList() {
@@ -269,10 +271,43 @@ public class StripeLab {
                 .setApiKey(secretKey)
                 .build();
 
-
-
-
         return ResponseEntity.ok().build();
+    }
+
+
+    @GetMapping(value = "/create-session")
+    public ResponseEntity<String> createSession(String customerId) throws StripeException {
+
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        List<Object> paymentMethodTypes =
+                new ArrayList<>();
+        paymentMethodTypes.add("card");
+        List<Object> lineItems = new ArrayList<>();
+        Map<String, Object> lineItem1 = new HashMap<>();
+        lineItem1.put("currency", "usd");
+        lineItem1.put("quantity", 2);
+        lineItem1.put("amount", 2);
+        lineItem1.put("name","Artur");
+        lineItems.add(lineItem1);
+        Map<String, Object> params = new HashMap<>();
+        params.put(
+                "success_url",
+                "https://example.com/success"
+        );
+        params.put(
+                "cancel_url",
+                "https://example.com/cancel"
+        );
+        params.put(
+                "payment_method_types",
+                paymentMethodTypes
+        );
+        params.put("line_items", lineItems);
+        params.put("mode", "payment");
+        Session session = Session.create(params, requestOptions);
+        session.setCustomer(customerId);
+
+        return ResponseEntity.ok().body(session.toJson());
     }
 
 }

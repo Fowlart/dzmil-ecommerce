@@ -2,6 +2,7 @@ package main.controllers;
 
 import main.entities.Client;
 import main.repositories.ClientRepository;
+import org.apache.coyote.Request;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
