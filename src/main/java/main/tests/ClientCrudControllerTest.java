@@ -3,7 +3,6 @@ package main.tests;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.junit.jupiter.api.Test;
 
 
 class ClientCrudControllerTest {
@@ -11,7 +10,6 @@ class ClientCrudControllerTest {
     public ClientCrudControllerTest() {
     }
 
-    @Test
     void getClientTest() {
 
         Unirest.setTimeouts(0, 0);

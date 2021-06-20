@@ -6,6 +6,7 @@ import com.stripe.model.*;
 import com.stripe.model.checkout.Session;
 import com.stripe.net.RequestOptions;
 import com.stripe.param.*;
+import main.Launcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,6 @@ import java.util.Map;
 @RequestMapping(path = "/stripe")
 public class StripeLab {
 
-    static public final String publishableKey = "pk_test_51J2EO2EoAGESdlxhMqsn7ZwZrdvolvKtNYMt8Zf4PxTewNwmx6W8MPbr7Ukm59uOwe0RAfcIcvefLFBpqQzjDMLW00mEzZTW1b";
-    static public final String secretKey = "sk_test_51J2EO2EoAGESdlxhx4CU0lowJrfaIRqOYJAvddFeuAPiLdfA8P4AyaRhHx70q96vdBppHZknH6mymrbcK8IkHTUj00kZnHW3cj";
-
     @GetMapping(value = "/get-stripe-customer-list")
     public ResponseEntity<List<Customer>> getCustomerList() {
 
@@ -34,7 +32,7 @@ public class StripeLab {
         CustomerListParams params = CustomerListParams.builder().setLimit(3l).build();
         /** Set api key per request **/
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         /** Making requests on behalf of connected accounts **/
 
@@ -57,7 +55,7 @@ public class StripeLab {
     public ResponseEntity<List<Customer>> getCustomerListFiltered(@RequestParam String eMail) throws StripeException {
 
         CustomerListParams params = CustomerListParams.builder().setLimit(3l).setEmail(eMail).build();
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         CustomerCollection customers = Customer.list(params, requestOptions);
         System.out.println(customers);
         return ResponseEntity.ok().body(customers.getData());
@@ -106,7 +104,7 @@ public class StripeLab {
     @GetMapping(value = "/create-customer")
     public ResponseEntity<Customer> createCustomer() throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         Map<String, Object> params = new HashMap<>();
         params.put(
                 "description",
@@ -120,7 +118,7 @@ public class StripeLab {
     @GetMapping(value = "/create-customer-2")
     public ResponseEntity<Customer> createCustomer2() throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         CustomerCreateParams customerCreateParams = CustomerCreateParams.builder()
                 .setDescription("customer with only description")
@@ -135,7 +133,7 @@ public class StripeLab {
     @GetMapping(value = "/create-customer-3")
     public ResponseEntity<String> createCustomer3() throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         CustomerCreateParams customerCreateParams = CustomerCreateParams.builder()
                 .setDescription("CustomerCreateParams.TaxExempt.EXEMPT")
@@ -150,7 +148,7 @@ public class StripeLab {
     @GetMapping(value = "/create-customer-4")
     public ResponseEntity<String> createCustomer4() throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         /** this will allow customers to make recurring payments in test mode for a billing subscription and other invoices **/
         CustomerCreateParams customerCreateParams = CustomerCreateParams.builder()
@@ -167,7 +165,7 @@ public class StripeLab {
     @GetMapping(value = "/fetch-customer")
     public ResponseEntity<String> fetchCustomer(@RequestParam String id) throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         Customer customer = Customer.retrieve(id, requestOptions);
 
@@ -179,7 +177,7 @@ public class StripeLab {
     @GetMapping(value = "/update-customer-eMail")
     public ResponseEntity<String> updateCustomer(@RequestParam String id, String eMail) throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         Customer customer = Customer.retrieve(id, requestOptions);
 
         CustomerUpdateParams customerUpdateParams = CustomerUpdateParams.builder().setEmail(eMail).build();
@@ -191,7 +189,7 @@ public class StripeLab {
     @GetMapping(value = "/update-customer-nested-params")
     public ResponseEntity<String> updateCustomerNestedParams(@RequestParam String id) throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         Customer customer = Customer.retrieve(id, requestOptions);
 
         CustomerUpdateParams customerUpdateParams = CustomerUpdateParams
@@ -207,7 +205,7 @@ public class StripeLab {
 
     @GetMapping(value = "/delete-customer")
     public ResponseEntity<String> deleteCustomer(@RequestParam String id) throws StripeException {
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         Customer customer = Customer.retrieve(id, requestOptions);
         Customer deletedCustomer = customer.delete(requestOptions);
         return ResponseEntity.ok().body(deletedCustomer.toJson());
@@ -222,7 +220,7 @@ public class StripeLab {
                 .setCurrency("Usd")
                 .build();
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         PaymentIntent intent = PaymentIntent.create(params, requestOptions);
 
@@ -242,7 +240,7 @@ public class StripeLab {
     @GetMapping(value = "/nested-resource")
     public ResponseEntity<String> nestedResource(String customerCode) throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
 
         InvoiceCreateParams invoiceCreateParams = InvoiceCreateParams
                 .builder()
@@ -268,7 +266,7 @@ public class StripeLab {
         RequestOptions onBehalfOfRequestOpt = RequestOptions
                 .builder()
                 .setStripeAccount("lalala")
-                .setApiKey(secretKey)
+                .setApiKey(Launcher.secretKey)
                 .build();
 
         return ResponseEntity.ok().build();
@@ -278,7 +276,7 @@ public class StripeLab {
     @GetMapping(value = "/create-session")
     public ResponseEntity<String> createSession(String customerId) throws StripeException {
 
-        RequestOptions requestOptions = RequestOptions.builder().setApiKey(secretKey).build();
+        RequestOptions requestOptions = RequestOptions.builder().setApiKey(Launcher.secretKey).build();
         List<Object> paymentMethodTypes =
                 new ArrayList<>();
         paymentMethodTypes.add("card");
