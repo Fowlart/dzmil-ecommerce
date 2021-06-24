@@ -59,10 +59,14 @@ public class DirectChargeController {
         // capabilities.put("transfers", transfers);
         //  params.put("capabilities", capabilities);
 
+        Map<String, Object> business_profile = new HashMap<>();
+        business_profile.put("name","Arturio Fernando del Cul");
+
         Map<String, Object> params = new HashMap<>();
         params.put("type", "standard");
         params.put("country", "US");
-        params.put("email", "jenny.rosen@example.com");
+        params.put("email", "fowlartshevchenka@gmail.com");
+        params.put("business_profile", business_profile);
 
         Account account = Account.create(params);
 
